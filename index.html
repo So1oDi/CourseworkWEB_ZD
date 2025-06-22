@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Каталог відеоігор</title>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Добавим отступ сверху, равный высоте шапки, чтобы контент не скрывался */
+    body {
+      padding-top: 70px; /* примерно высота header */
+    }
+    /* Фиксируем шапку */
+    header.bg-dark {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-dark">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+      <div class="logo text-white font-weight-bold" style="font-size: 1.5rem;">
+        GameCatalog
+      </div>
+      <button id="menuToggle" class="btn btn-outline-light d-md-none" aria-label="Toggle menu">
+        &#9776;
+      </button>
+      <nav id="mainNav" class="d-none d-md-flex">
+        <ul class="nav flex-column flex-md-row">
+          <li class="nav-item"><a class="nav-link active" href="index.html#games">Ігри</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">Про сайт</a></li>
+          <li class="nav-item"><a class="nav-link" href="news.html">Новини</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacts.html">Контакти</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="slider" id="slider"></div>
+
+    <hr />
+
+    <section id="games">
+      <h2 class="mt-5">Ігри за роками</h2>
+      <div class="filter">
+        <label for="yearFilter">Оберіть рік:</label>
+        <select id="yearFilter" class="form-control w-25">
+          <option value="all">Усі</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+        </select>
+      </div>
+
+      <div class="row" id="gamesContainer"></div>
+    </section>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    &copy; 2025 Каталог відеоігор. Всі права захищені.
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(function () {
+      $('#slider').hide().fadeIn(2000);
+
+      const gamesData = {
+        2023: [
+          { title: "Hogwarts Legacy", img: "image/хогр.jfif", url: "https://store.steampowered.com/app/990080" },
+          { title: "Starfield", img: "image/Starfield_2022.png", url: "https://store.steampowered.com/app/1716740" },
+          { title: "Diablo IV", img: "image/Diablo_IV_Cover_Art.png", url: "https://store.steampowered.com/agecheck/app/2344520/" },
+          { title: "Baldur’s Gate 3", img: "image/Без названия.jfif", url: "https://store.steampowered.com/app/1086940" },
+          { title: "Resident Evil 4 Remake", img: "image/Без названия (1).jfif", url: "https://store.steampowered.com/app/2050650" },
+          { title: "Street Fighter 6", img: "image/Без названия (2).jfif", url: "https://store.steampowered.com/app/1384160" },
+          { title: "Final Fantasy XVI", img: "image/Без названия (3).jfif", url: "https://store.steampowered.com/app/2515020/FINAL_FANTASY_XVI/" },
+          { title: "Hollow Knight: Silksong", img: "image/Без названия (4).jfif", url: "https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/" },
+          { title: "Atomic Heart", img: "image/Без названия (5).jfif", url: "https://store.steampowered.com/app/668580/Atomic_Heart/" },
+          { title: "Company of Heroes 3", img: "image/Без названия (6).jfif", url: "https://store.steampowered.com/app/1677280/Company_of_Heroes_3/" },
+        ],
+        2024: [
+          { title: "Assassin’s Creed Mirage", img: "image/Без названия (7).jfif", url: "https://store.steampowered.com/app/3035570/Assassins_Creed_Mirage/" },
+          { title: "Alan Wake II", img: "image/Без названия (8).jfif", url: "#" },
+          { title: "Avowed", img: "image/Без названия (9).jfif", url: "https://store.steampowered.com/app/2457220/Avowed/" },
+          { title: "Star Wars Jedi: Survivor", img: "image/Без названия (10).jfif", url: "https://store.steampowered.com/app/1774580/STAR_WARS_Jedi_Survivor/" },
+          { title: "Dead Space Remake", img: "image/Без названия (11).jfif", url: "#" },
+          { title: "The Wolf Among Us 2", img: "image/Без названия (12).jfif", url: "#" },
+          { title: "Forza Motorsport", img: "image/Без названия (13).jfif", url: "https://store.steampowered.com/app/2440510/Forza_Motorsport/" },
+          { title: "Hellblade II: Senua’s Saga", img: "image/Без названия (14).jfif", url: "https://store.steampowered.com/app/3199630/Senuas_Saga_Hellblade_II_Soundtrack/" },
+          { title: "Stalker 2: Heart of Chernobyl", img: "image/Без названия (15).jfif", url: "https://store.steampowered.com/app/1643320/STALKER_2_Heart_of_Chornobyl/" },
+          { title: "Helldivers 2", img: "image/Без названия (16).jfif", url: "https://store.steampowered.com/app/553850/HELLDIVERS_2/" },
+        ],
+        2025: [
+          { title: "Kingdom Come: Deliverance 2", img: "image/Без названия (17).jfif", url: "https://store.steampowered.com/app/1771300/Kingdom_Come_Deliverance_II/" },
+          { title: "Assassin's Creed Shadows", img: "image/Без названия (18).jfif", url: "https://store.steampowered.com/app/3159330/Assassins_Creed_Shadows/" },
+          { title: "DOOM: The Dark Ages", img: "image/Без названия (19).jfif", url: "https://store.steampowered.com/app/3017860/DOOM_The_Dark_Ages/" },
+          { title: "Vampire: The Masquerade – Bloodlines 2", img: "image/Без названия (20).jfif", url: "https://store.steampowered.com/app/532790/Vampire_The_Masquerade__Bloodlines_2/" },
+          { title: "Death Stranding 2: On The Beach", img: "image/Без названия (21).jfif", url: "#" },
+          { title: "Metroid Prime 4: Beyond", img: "image/Без названия (22).jfif", url: "#" },
+          { title: "Mafia: The Old Country", img: "image/Без названия (23).jfif", url: "https://store.steampowered.com/app/1941540/Mafia_The_Old_Country/" },
+          { title: "Five Nights at Freddy's: Secret of the Mimic", img: "image/Без названия (24).jfif", url: "https://store.steampowered.com/app/2215390/Five_Nights_at_Freddys_Secret_of_the_Mimic/" },
+          { title: "Ghost of Tsushima 2", img: "image/images.jfif", url: "#" },
+          { title: "Monster Hunter Wilds", img: "image/Без названия (25).jfif", url: "https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/" },
+          { title: "Like a Dragon: Pirate Yakuza in Hawaii", img: "image/Без названия (26).jfif", url: "https://store.steampowered.com/app/3061810/Like_a_Dragon_Pirate_Yakuza_in_Hawaii/" },
+        ],
+      };
+
+      function generateGamesForYear(year) {
+        let html = '';
+        if (!gamesData[year]) {
+          html = `<p>Ігор за ${year} рік немає.</p>`;
+          return html;
+        }
+        gamesData[year].forEach(game => {
+          html += `
+            <div class="col-md-4 game-block" data-year="${year}">
+              <img src="${game.img}" class="img-fluid" alt="${game.title}" />
+              <h5 class="mt-2">${game.title}</h5>
+              <a href="${game.url}" target="_blank" class="steam-button mt-2">Купити в Steam</a>
+            </div>
+          `;
+        });
+        return html;
+      }
+
+      function loadAllGames() {
+        let allGamesHtml = '';
+        Object.keys(gamesData).forEach(year => {
+          allGamesHtml += generateGamesForYear(year);
+        });
+        $('#gamesContainer').html(allGamesHtml);
+      }
+
+      loadAllGames();
+
+      $('#yearFilter').on('change', function () {
+        const selectedYear = $(this).val();
+        if (selectedYear === 'all') {
+          loadAllGames();
+        } else {
+          $('#gamesContainer').html(generateGamesForYear(selectedYear));
+        }
+      });
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('mainNav');
+
+      menuToggle.addEventListener('click', function () {
+        if (window.innerWidth < 768) {
+          nav.classList.toggle('d-none');
+          nav.classList.toggle('d-block');
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 768) {
+          nav.classList.remove('d-none', 'd-block');
+          nav.classList.add('d-md-flex');
+        } else {
+          nav.classList.add('d-none');
+          nav.classList.remove('d-md-flex');
+        }
+      });
+
+      if (window.innerWidth >= 768) {
+        nav.classList.remove('d-none');
+        nav.classList.add('d-md-flex');
+      } else {
+        nav.classList.add('d-none');
+        nav.classList.remove('d-md-flex');
+      }
+    });
+  </script>
+</body>
+</html>

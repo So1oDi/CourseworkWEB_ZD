@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Про сайт — Каталог відеоігор</title>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    header.bg-dark {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: #343a40;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    /* Навигация - общий стиль */
+    nav#mainNav {
+      display: flex;
+    }
+
+    nav#mainNav ul.nav {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav#mainNav ul.nav li.nav-item a.nav-link {
+      color: white !important;
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      height: 70px;
+      transition: color 0.3s ease;
+    }
+
+    nav#mainNav ul.nav li.nav-item a.nav-link:hover,
+    nav#mainNav ul.nav li.nav-item a.nav-link:focus {
+      color: #adb5bd !important;
+    }
+
+    /* Кнопка гамбургер */
+    #menuToggle {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Отступ сверху для контента */
+    .content {
+      padding-top: 80px;
+    }
+
+    /* Мобильные стили */
+    @media (max-width: 767.98px) {
+      #menuToggle {
+        display: block;
+      }
+
+      nav#mainNav {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: #343a40;
+        flex-direction: column;
+        display: none; /* Скрыто по умолчанию */
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+      }
+
+      nav#mainNav.show {
+        display: flex; /* Показать меню при классе show */
+      }
+
+      nav#mainNav ul.nav {
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+        padding: 1rem 0;
+      }
+
+      nav#mainNav ul.nav li.nav-item {
+        text-align: center;
+      }
+
+      nav#mainNav ul.nav li.nav-item a.nav-link {
+        padding: 0.7rem 1rem;
+        font-size: 1.1rem;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-dark">
+    <div class="container d-flex justify-content-between align-items-center" style="height: 70px; padding: 0;">
+      <div class="logo">
+        GameCatalog
+      </div>
+      <button id="menuToggle" aria-label="Toggle menu">
+        &#9776;
+      </button>
+      <nav id="mainNav">
+        <ul class="nav flex-column flex-md-row">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html#games">Ігри</a></li>
+          <li class="nav-item"><a class="nav-link text-white active" href="about.html">Про сайт</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="news.html">Новини</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="contacts.html">Контакти</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="content container mt-5">
+    <h1>Про наш каталог відеоігор</h1>
+    <p>
+      Ласкаво просимо до GameCatalog — сучасного каталогу відеоігор, де ви можете легко
+      знайти популярні ігри за роками випуску, ознайомитися з їх описом і перейти до офіційної сторінки
+      Steam для придбання. Ми постійно оновлюємо базу даних, щоб ви завжди мали найсвіжішу інформацію
+      про новинки ігрової індустрії.
+    </p>
+    <p>
+      Використовуйте меню навігації, щоб швидко переходити між розділами сайту і відкривати потрібні вам ігри.
+      Якщо у вас є пропозиції чи запитання, зв’яжіться з нами через сторінку «Контакти».
+    </p>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    &copy; 2025 Каталог відеоігор. Всі права захищені.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('mainNav');
+
+      menuToggle.addEventListener('click', function () {
+        nav.classList.toggle('show');
+      });
+
+      // Опционально: скрывать меню при изменении размера окна на большой экран
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 768) {
+          nav.classList.remove('show');
+          nav.style.display = 'flex';
+        } else {
+          nav.style.display = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

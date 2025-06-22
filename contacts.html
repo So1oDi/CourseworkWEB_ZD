@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Контакти</title>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="bg-dark">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+      <div class="logo text-white font-weight-bold" style="font-size: 1.5rem;">
+        GameCatalog
+      </div>
+      <button id="menuToggle" class="btn btn-outline-light d-md-none" aria-label="Toggle menu">
+        &#9776;
+      </button>
+      <nav id="mainNav" class="d-none d-md-flex">
+        <ul class="nav flex-column flex-md-row">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html#games">Ігри</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="about.html">Про сайт</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="news.html">Новини</a></li>
+          <li class="nav-item"><a class="nav-link text-white active" href="contacts.html">Контакти</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Оборачиваем основной контент в .content -->
+  <div class="content container my-5">
+    <h1>Контакти</h1>
+    <p>Якщо у вас є питання, пропозиції або зауваження, ви можете зв’язатися з нами за електронною поштою: <a href="mailto:info@gamecatalog.ua">info@gamecatalog.ua</a></p>
+    <p>Телефон: +380 12 345 6789</p>
+    <p>Адреса: вул. Ігрова, 15, Київ, Україна</p>
+  </div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    &copy; 2025 Каталог відеоігор. Всі права захищені.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('mainNav');
+
+      if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function () {
+          if (window.innerWidth < 768) {
+            nav.classList.toggle('d-none');
+            nav.classList.toggle('d-block');
+          }
+        });
+
+        window.addEventListener('resize', function () {
+          if (window.innerWidth >= 768) {
+            nav.classList.remove('d-none', 'd-block');
+            nav.classList.add('d-md-flex');
+          } else {
+            nav.classList.add('d-none');
+            nav.classList.remove('d-md-flex');
+          }
+        });
+
+        if (window.innerWidth >= 768) {
+          nav.classList.remove('d-none');
+          nav.classList.add('d-md-flex');
+        } else {
+          nav.classList.add('d-none');
+          nav.classList.remove('d-md-flex');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
